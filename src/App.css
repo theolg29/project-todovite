@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -42,12 +41,27 @@
 }
 
 
+
+
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .todo-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin: 10px 0;
-  background-color: blue;
+}
+
+.todo-delete {
+  background-color: transparent;
+  transition: 200ms;
+}
+.todo-delete:hover {
+  background-color: red;
 }
 
 .todo-wrapper > * {

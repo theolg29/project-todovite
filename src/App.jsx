@@ -1,12 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
+  // Chargement des tâches sauvegardées lors du premier rendu
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("todos");
+    if (savedTodos) {
+      setTodos(JSON.parse(savedTodos));
+    }
+  }, []);
+
+  // Sauvegarde des tâches chaque fois qu'elles changent
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <div className="app-wrapper">
-      <h1>Tasks</h1>
+      <a href="https://vitejs.dev" target="_blank">
+        <img src={viteLogo} className="logo" alt="Vite logo" />
+      </a>
+      <a href="https://react.dev" target="_blank">
+        <img src={reactLogo} className="logo react" alt="React logo" />
+      </a>
+      <h1>TodoVite.app</h1>
+      <p>Ajouter des tâches facilement et rapidement</p>
 
       <Form
         addTodo={(todo) => {
@@ -43,17 +65,9 @@ const Form = ({ addTodo }) => {
 
   return (
     <form className="form-wrapper" onSubmit={onSubmit}>
-      <input id="todo" className="input" type="text" placeholder="Add a task" />
-      <button type="submit">Submit</button>
+      <input id="todo" className="input" type="text" placeholder="Ajouter une tâche" />
+      <button type="submit">Ajouter</button>
     </form>
-  );
-};
-
-const Button = ({ children, ...props }) => {
-  return (
-    <button className="button" {...props}>
-      {children}
-    </button>
   );
 };
 
@@ -85,9 +99,6 @@ const Checkbox = () => {
   return (
     <div className="checkbox">
       <input type="checkbox" checked={checked} onChange={onChange} />
-      {/* {checked && (
-      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
-    )} */}
     </div>
   );
 };
